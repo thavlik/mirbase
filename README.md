@@ -11,7 +11,7 @@ Run the following command:
 docker build -t thavlik/mirbase:latest .
 ```
 
-## Using
+## Usage
 This image is intended to be used as a base image. For example:
 
 ```Dockerfile
@@ -25,3 +25,6 @@ COPY --from=db /mirbase.sqlite /opt/mirbase.sqlite
 # Now your docker image contains the prebuilt sqlite database file.
 #
 ```
+
+## License
+The code in this repository for building the database is [licensed under MIT](./LICENSE).
