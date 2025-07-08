@@ -17,7 +17,18 @@ func (s *sqlStore) InsertMiRNA(ctx context.Context, records []*mirbase.MiRNA) er
 	for _, record := range records {
 		if _, err := tx.ExecContext(
 			ctx,
-			`INSERT INTO mirna (
+			`INSERT INTO mirna_search VALUES ($1, $2, $3, $4, $5)`,
+			record.MiRNAAcc,
+			record.MiRNAID,
+			record.Description,
+			string(record.Sequence),
+			record.Comment,
+		); err != nil {
+			return errors.Wrapf(err, "failed to insert record: %v", record)
+		}
+		if _, err := tx.ExecContext(
+			ctx, `
+INSERT INTO mirna (
   auto_mirna,
   mirna_acc,
   mirna_id,
