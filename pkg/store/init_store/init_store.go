@@ -10,7 +10,7 @@ import (
 	"github.com/thavlik/mirbase/pkg/store/sql_store"
 )
 
-func InitStore(path string, create bool) (store.Store, error) {
+func Open(path string, create bool) (*sql.DB, error) {
 	query := []string{
 		"_sync=FULL",
 		"_journal_mode=PERSIST",
@@ -46,6 +46,14 @@ func InitStore(path string, create bool) (store.Store, error) {
 			strings.Join(query, "&"),
 		),
 	)
+	if err != nil {
+		return nil, fmt.Errorf("failed to open database: %v", err)
+	}
+	return db, nil
+}
+
+func InitStore(path string, create bool) (store.Store, error) {
+	db, err := Open(path, create)
 	if err != nil {
 		return nil, fmt.Errorf("failed to open database: %v", err)
 	}
