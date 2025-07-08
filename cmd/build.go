@@ -12,22 +12,17 @@ import (
 	"github.com/thavlik/mirbase/pkg/build"
 	"github.com/thavlik/mirbase/pkg/store"
 	"github.com/thavlik/mirbase/pkg/store/sql_store"
-	"go.uber.org/zap"
 )
 
 const defaultDbPath = "/mirbase.sqlite"
 
 var buildArgs struct {
-	stdin  bool
 	output string
 }
 
 var buildCmd = &cobra.Command{
 	Use:  "build",
 	Args: cobra.NoArgs,
-	PreRunE: func(cmd *cobra.Command, args []string) error {
-		return nil
-	},
 	RunE: func(cmd *cobra.Command, args []string) error {
 		start := time.Now()
 		fmt.Println("Creating output database:", buildArgs.output)
@@ -58,8 +53,6 @@ func init() {
 
 func initStore(path string, create bool) (store.Store, error) {
 	query := []string{
-		//"_locking_mode=EXCLUSIVE",
-		//"_txlock=exclusive",
 		"_sync=FULL",
 		"_journal_mode=PERSIST",
 		"_auto_vacuum=FULL",
@@ -67,10 +60,6 @@ func initStore(path string, create bool) (store.Store, error) {
 		"_defer_foreign_keys=no",
 		"_case_sensitive_like=no",
 		"cache=shared",
-	}
-	args := []zap.Field{
-		zap.String("path", path),
-		zap.Strings("query", query),
 	}
 	if create {
 		query = append(query, "mode=rwc")
@@ -89,7 +78,6 @@ func initStore(path string, create bool) (store.Store, error) {
 		if sizeInMb < 1 {
 			return nil, fmt.Errorf("database file '%s' is too small: %d KiB", path, info.Size()/1000)
 		}
-		args = append(args, zap.Int64("sizeInMb", sizeInMb))
 	}
 	db, err := sql.Open(
 		"sqlite3",
