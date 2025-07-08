@@ -13,6 +13,7 @@ func withLineCount(r io.Reader) (io.Reader, int, error) {
 	if err != nil {
 		return nil, 0, err
 	}
+
 	unescaped := html.UnescapeString(string(body))
 	lineCount := strings.Count(unescaped, "\n")
 	return bytes.NewBuffer([]byte(unescaped)), lineCount, nil
