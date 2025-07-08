@@ -72,7 +72,7 @@ CREATE TABLE mirna (
   dead_flag tinyint NOT NULL
 );
 
-CREATE VIRTUAL TABLE mirna_search USING fts5(mirna_acc, mirna_id, description, sequence, comment);
+CREATE VIRTUAL TABLE mirna_search USING fts5(mirna_acc, mirna_id, description, sequence, comment, tokenize="trigram");
 
 DROP TABLE IF EXISTS mirna_2_prefam;
 CREATE TABLE mirna_2_prefam (
