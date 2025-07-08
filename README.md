@@ -1,5 +1,6 @@
 # mirbase
 [<img src="https://img.shields.io/badge/maintenance%20status-actively%20developed-brightgreen">](https://github.com/thavlik/mirbase)
+[<img src="https://img.shields.io/docker/image-size/thavlik/mirbase/latest">](https://hub.docker.com/r/thavlik/mirbase)
 [<img src="https://img.shields.io/badge/Language-go-01add8.svg">](https://go.dev/)
 [<img src="https://img.shields.io/badge/License-MIT-lightblue.svg">](./LICENSE)
 
