@@ -75,7 +75,7 @@ type DeadMiRNA struct {
 	ForwardTo string `json:"forward_to"`
 
 	///comment mediumtext
-	Comment string `json:"comment"`
+	Comment string `json:"comment,omitempty"`
 }
 
 type LiteratureReferences struct {
@@ -120,7 +120,7 @@ type MatureDatabaseUrl struct {
 	URL string `json:"url"`
 
 	///type smallint
-	Type int64 `json:"type"`
+	Type int64 `json:"type,omitempty"`
 }
 
 type MiRNA struct {
@@ -137,13 +137,13 @@ type MiRNA struct {
 	PreviousMiRNAID string `json:"previous_mirna_id"`
 
 	///description varchar
-	Description string `json:"description"`
+	Description string `json:"description,omitempty"`
 
 	///sequence blob
-	Sequence []byte `json:"sequence"`
+	Sequence []byte `json:"sequence,omitempty"`
 
 	///comment longtext
-	Comment string `json:"comment"`
+	Comment string `json:"comment,omitempty"`
 
 	///auto_species int
 	AutoSpecies int64 `json:"auto_species"`
