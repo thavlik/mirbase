@@ -1,10 +1,10 @@
 # mirbase
-[<img src="https://img.shields.io/badge/maintenance%20status-actively%20developed-brightgreen">](https://github.com/thavlik/mirbase)
 [<img src="https://img.shields.io/docker/image-size/thavlik/mirbase/latest">](https://hub.docker.com/r/thavlik/mirbase)
+[<img src="https://img.shields.io/badge/maintenance%20status-actively%20developed-brightgreen">](https://github.com/thavlik/mirbase)
 [<img src="https://img.shields.io/badge/Language-go-01add8.svg">](https://go.dev/)
 [<img src="https://img.shields.io/badge/License-MIT-lightblue.svg">](./LICENSE)
 
-This repository contains a Dockerfile for building a sqlite database from the [miRBase data](https://www.mirbase.org/download/).
+This repository contains a Dockerfile for building a sqlite database from the [miRBase data](https://www.mirbase.org/download/). 
 
 ## Building
 Run the following command:
@@ -13,7 +13,7 @@ docker build -t thavlik/mirbase:latest .
 ```
 
 ## Usage
-This image is intended to be used as a base image. For example:
+The prebuilt image is intended to be used as a base image. For example:
 
 ```Dockerfile
 # Create a reference to the database image as a build stage.
@@ -26,6 +26,8 @@ COPY --from=db /mirbase.sqlite /opt/mirbase.sqlite
 # Now your docker image contains the prebuilt sqlite database file.
 #
 ```
+
+Note: the only time you must build this image is if you want to change how data is handled. For example, you want to insert into a PostgreSQL server instead of writing to a sqlite file. If sqlite is sufficient for you, you are encouraged to use the [prebuilt image](https://hub.docker.com/r/thavlik/mirbase).
 
 ## License
 The code in this repository for building the database is [licensed under MIT](./LICENSE).
