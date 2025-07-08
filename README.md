@@ -12,6 +12,9 @@ Run the following command:
 docker build -t thavlik/mirbase:latest .
 ```
 
+## Schema
+See [tables.sql](pkg/store/sql_store/tables.sql) for how the tables are created. Note that the schema used for sqlite differs from the official miRBase release.
+
 ## Usage
 The prebuilt image is intended to be used as a base image. For example:
 
