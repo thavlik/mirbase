@@ -7,16 +7,16 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /go/src/github.com/thavlik/mirbase
-COPY go.mod .
-COPY go.sum .
-RUN go mod download
-
 WORKDIR /mirbase
 COPY scripts/download_mirbase.sh /tmp/download_mirbase.sh
 RUN chmod +x /tmp/download_mirbase.sh /mirbase \
     && /tmp/download_mirbase.sh \
     && rm -f /tmp/download_mirbase.sh
+
+WORKDIR /go/src/github.com/thavlik/mirbase
+COPY go.mod .
+COPY go.sum .
+RUN go mod download
 
 WORKDIR /go/src/github.com/thavlik/mirbase
 COPY cmd cmd
