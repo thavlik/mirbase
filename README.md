@@ -15,6 +15,9 @@ docker build -t thavlik/mirbase:latest .
 ## Schema
 See [tables.sql](pkg/store/sql_store/tables.sql) for how the tables are created. Note that the schema used for sqlite differs from the official miRBase release.
 
+### Searching
+[tables.sql](pkg/store/sql_store/tables.sql) creates an [fts5](https://www.sqlite.org/fts5.html) virtual table to fuzzy search for rows in the `mirna` table. The trigram tokenizer provides a fuzzy searching behavior. 
+
 ## Usage
 The prebuilt image is intended to be used as a base image, where you can find the database file at `/mirbase.sqlite`. For example:
 
