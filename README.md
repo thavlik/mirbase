@@ -4,7 +4,7 @@
 [<img src="https://img.shields.io/badge/Language-go-01add8.svg">](https://go.dev/)
 [<img src="https://img.shields.io/badge/License-MIT-lightblue.svg">](./LICENSE)
 
-This repository contains a Dockerfile for building a sqlite database from the [miRBase data](https://www.mirbase.org/download/). 
+This repository contains a Dockerfile for building a [sqlite](https://www.sqlite.org/) database from the [miRBase data](https://www.mirbase.org/download/). 
 
 ## Building
 Run the following command:
@@ -16,7 +16,7 @@ docker build -t thavlik/mirbase:latest .
 See [tables.sql](pkg/store/sql_store/tables.sql) for how the tables are created. Note that the schema used for sqlite differs from the official miRBase release.
 
 ## Usage
-The prebuilt image is intended to be used as a base image. You can find the database file at `/mirbase.sqlite`. For example:
+The prebuilt image is intended to be used as a base image, where you can find the database file at `/mirbase.sqlite`. For example:
 
 ```Dockerfile
 # Create a reference to the database image as a build stage.
