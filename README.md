@@ -29,7 +29,8 @@ FROM thavlik/mirbase:latest AS db
 FROM debian:latest
 COPY --from=db /mirbase.sqlite /opt/mirbase.sqlite
 #
-# Now your docker image contains the prebuilt sqlite database file.
+# Now your docker image contains the prebuilt
+# sqlite database file at /opt/mirbase.sqlite
 #
 ```
 
