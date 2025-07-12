@@ -30,3 +30,4 @@ RUN ./mirbase build -o /mirbase.sqlite \
 FROM debian:bookworm-slim
 COPY --from=builder /mirbase.sqlite /mirbase.sqlite
 COPY --from=builder /go/src/github.com/thavlik/mirbase/cmd/mirbase /usr/local/bin/mirbase
+CMD ["mirbase"]
