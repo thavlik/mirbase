@@ -24,8 +24,9 @@ COPY pkg pkg
 
 WORKDIR /go/src/github.com/thavlik/mirbase/cmd
 RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=1 go build -tags "fts5" -o mirbase
-RUN ./mirbase build -o /mirbase.sqlite \
+RUN mv /go/src/github.com/thavlik/mirbase/cmd/mirbase /usr/local/bin/mirbase
+RUN mirbase build -o /mirbase.sqlite \
     && bash -c 'if [[ "$(stat -c%s /mirbase.sqlite)" -lt "100000" ]]; then echo "Database file is too small: $(stat -c%s /mirbase.sqlite) bytes"; ls -al / | grep mirbase; exit 1; fi'
 
-FROM debian:bookworm-slim
-COPY --from=builder /mirbase.sqlite /mirbase.sqlite
+#FROM debian:bookworm-slim
+#COPY --from=builder /mirbase.sqlite /mirbase.sqlite

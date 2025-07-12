@@ -98,5 +98,26 @@ LIMIT $2 OFFSET $3`,
 }
 ```
 
+The above function is implemented as the `search` subcommand, which can be ran as follows:
+```bash
+docker run -it --rm thavlik/mirbase:latest mirbase search 12180
+```
+```json
+[
+  {
+    "mirna_acc": "MI0040618",
+    "mirna_id": "mmu-mir-12180",
+    "description": "Mus musculus miR-\u003cb\u003e12180\u003c/b\u003e stem-loop",
+    "sequence": "AGUGUUCCAGCAUGGAAGGGGAGGGGUUCCUGAGCUUGUGUCUUUAACCAAGGAGCUGUGGACACUUGA"
+  },
+  {
+    "mirna_acc": "MI0012180",
+    "mirna_id": "bmo-mir-2731-2",
+    "description": "Bombyx mori miR-2731-2 stem-loop",
+    "sequence": "AAACCUAACAGAUGCGAGACCAUGGUAUGUGGAAAUAAAAGCCACCCGGUUUUUAUCUUUCCACACCAAAAGAUCCACAUUUCCCGAGGUG"
+  }
+]
+```
+
 ## License
 The code in this repository for building the database is [licensed under MIT](./LICENSE).

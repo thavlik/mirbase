@@ -9,6 +9,14 @@ import (
 
 var ErrNotFound = fmt.Errorf("record not found")
 
+type MiRNASearchResult struct {
+	MiRNAAcc    string `json:"mirna_acc"`
+	MiRNAID     string `json:"mirna_id"`
+	Description string `json:"description,omitempty"`
+	Sequence    string `json:"sequence,omitempty"`
+	Comment     string `json:"comment,omitempty"`
+}
+
 type Store interface {
 	Close() error
 
@@ -29,4 +37,6 @@ type Store interface {
 	InsertMiRNAPrefam(context.Context, []*mirbase.MiRNAPrefam) error
 	InsertMiRNASpecies(context.Context, []*mirbase.MiRNASpecies) error
 	InsertMiRNA(context.Context, []*mirbase.MiRNA) error
+
+	SearchMiRNAs(ctx context.Context, query string, pageSize int, page int) ([]*MiRNASearchResult, error)
 }
