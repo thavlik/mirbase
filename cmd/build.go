@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"time"
 
-	_ "github.com/mattn/go-sqlite3"
 	"github.com/spf13/cobra"
 	"github.com/thavlik/mirbase/pkg/build"
 	"github.com/thavlik/mirbase/pkg/store/init_store"
