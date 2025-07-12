@@ -37,7 +37,7 @@ Note: the only time you must build this image is if you want to change how data 
 ### Searching
 [tables.sql](pkg/store/sql_store/tables.sql) creates an [fts5](https://www.sqlite.org/fts5.html) virtual table to fuzzy search for rows in the `mirna` table. The trigram tokenizer provides a fuzzy searching behavior. 
 
-Here is some code written in [Go](https://go.dev/) that demonstrates paginated fuzzy searching and applies bold (\<b\> and \</b\>) tags to the matched text:
+Here is some code written in [Go](https://go.dev/) that demonstrates paginated fuzzy searching and applies bold (\<b\> and \</b\>) tags to the matched text. Note that [go-sqlite3](https://github.com/mattn/go-sqlite3) with the search function requires compiling with `CGO_ENABLED=1` and `-tags "fts5"`, as per the [`Dockerfile`](./Dockerfile).
 ```go
 type MiRNASearchResult struct {
 	MiRNAAcc    string `json:"mirna_acc"`
