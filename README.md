@@ -18,6 +18,64 @@ See [tables.sql](pkg/store/sql_store/tables.sql) for how the tables are created.
 ### Searching
 [tables.sql](pkg/store/sql_store/tables.sql) creates an [fts5](https://www.sqlite.org/fts5.html) virtual table to fuzzy search for rows in the `mirna` table. The trigram tokenizer provides a fuzzy searching behavior. 
 
+Here is some code written in [Go](https://go.dev/) that demonstrates paginated fuzzy searching and applies bold (\<b\> and \</b\>) tags to the matched text:
+```go
+type MiRNASearchResult struct {
+	MiRNAAcc    string `json:"mirna_acc"`
+	MiRNAID     string `json:"mirna_id"`
+	Description string `json:"description,omitempty"`
+	Sequence    string `json:"sequence,omitempty"`
+	Comment     string `json:"comment,omitempty"`
+}
+
+// SearchMiRNAs fuzzy searches the sqlite database for miRNAs,
+// partially matching accession number, ID, description, sequence,
+// or comment. Results are sorted by rank and paginated.
+func SearchMiRNAs(
+	ctx context.Context,
+	db *sql.DB,
+	query string,
+	pageSize int,
+	page int,
+) ([]*MiRNASearchResult, error) {
+	rows, err := db.QueryContext(
+		ctx,
+		`SELECT mirna_acc, mirna_id,
+  highlight(mirna_search, 2, '<b>', '</b>'),
+  highlight(mirna_search, 3, '<b>', '</b>'),
+  highlight(mirna_search, 4, '<b>', '</b>')
+FROM mirna_search($1)
+ORDER BY rank
+LIMIT $2 OFFSET $3`,
+		query,
+		pageSize,
+		(page-1)*pageSize,
+	)
+	if err != nil {
+		return nil, errors.Wrap(err, "sql query")
+	}
+	defer rows.Close()
+	results := []*MiRNASearchResult{}
+	for rows.Next() {
+		result := new(MiRNASearchResult)
+		if err := rows.Scan(
+			&result.MiRNAAcc,
+			&result.MiRNAID,
+			&result.Description,
+			&result.Sequence,
+			&result.Comment,
+		); err != nil {
+			return nil, errors.Wrap(err, "sql scan")
+		}
+		results = append(results, result)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, errors.Wrap(err, "sql rows iterator")
+	}
+	return results, nil
+}
+```
+
 ## Usage
 The prebuilt image is intended to be used as a base image, where you can find the database file at `/mirbase.sqlite`. For example:
 
