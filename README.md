@@ -7,7 +7,7 @@
 This repository contains a Dockerfile for building a [sqlite](https://www.sqlite.org/) database from the [miRBase data](https://www.mirbase.org/download/). 
 
 ## Building
-Run the following command:
+Run [./scripts/build.sh](./scripts/build.sh) or run the following command:
 ```bash
 docker build -t thavlik/mirbase:latest .
 ```
