@@ -17,7 +17,9 @@ See [tables.sql](pkg/store/sql_store/tables.sql) for how the tables are created.
 
 
 ## Usage
-The prebuilt image is intended to be used as a base image, where you can find the database file at `/mirbase.sqlite`. For example:
+There are two ways to utilize the prebuilt image: as a base image, and the `mirbase` command line.
+
+When used as a base image, where you can find the database file at `/mirbase.sqlite`:
 
 ```Dockerfile
 # Create a reference to the database image as a build stage.
