@@ -34,6 +34,9 @@ COPY --from=db /mirbase.sqlite /opt/mirbase.sqlite
 
 Note: the only time you must build this image is if you want to change how data is handled. For example, you want to insert into a PostgreSQL server instead of writing to a sqlite file. If sqlite is sufficient for you, you are encouraged to use the [prebuilt image](https://hub.docker.com/r/thavlik/mirbase).
 
+### Loading
+See [init_store.go](pkg/store/init_store/init_store.go) for code that demonstrates how to open the database. It is advised to optimize your connection query for your application.
+
 ### Searching
 [tables.sql](pkg/store/sql_store/tables.sql) creates an [fts5](https://www.sqlite.org/fts5.html) virtual table to fuzzy search for rows in the `mirna` table. The trigram tokenizer provides a fuzzy searching behavior. 
 
